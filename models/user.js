@@ -6,18 +6,20 @@ var Schema = mongoose.Schema;
 /* The user schema attributes / characteristics / fields */
 var UserSchema = new Schema({
 
+  username: { type: String, unique: true, lowercase: true},
   email: { type: String, unique: true, lowercase: true},
   password: String,
 
   profile: {
     name: { type: String, default: ''},
+    address: { type: String, default: ''},
     picture: { type: String, default: ''}
   },
 
   address: String,
+  dateofbirth: Date,
   history: [{
-    paid: { type: Number, default: 0},
-    item: { type: Schema.Types.ObjectId, ref: 'Product'}
+    admissionDate: Date
   }]
 });
 
