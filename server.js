@@ -24,11 +24,13 @@ mongoose.connect('mongodb://pixelkris:213X143a@ds023452.mlab.com:23452/ecommmerc
 });
 
 // Middleware
+app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
+app
 
 var mainRoutes = require('./routes/main');
 var userRoutes = require('./routes/user');

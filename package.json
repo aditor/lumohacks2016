@@ -1,0 +1,30 @@
+{
+  "name": "doctR",
+  "version": "1.0.0",
+  "description": "An DoctR Web App",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Xavier dela Cruz",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pixelkris/lumohacks2016.git"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.1",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.4.1",
+    "ejs-mate": "^2.3.0",
+    "express": "^4.13.4",
+    "express-router": "0.0.1",
+    "express-session": "^1.14.1",
+    "flash": "^1.1.0",
+    "mongoose": "^4.4.17",
+    "morgan": "^1.7.0",
+    "router": "^1.1.4",
+    "session": "^0.1.0"
+  }
+}
