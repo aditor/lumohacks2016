@@ -1,25 +1,30 @@
-var express = require('express');                 // Express Library
-var morgan = require('morgan');                   // Morgan middleware
-var mongoose = require('mongoose');               // Mongoose library
-var bodyParser = require('body-parser');          // BodyParser library
-var ejs = require('ejs');                         // EJS library
-var ejsMate = require('ejs-mate');                // EJS mate library
-var session = require('session');                 // Session library
-var cookieParser = require('cookie-parser');      // Cookie-parser library
-var expressSession = require('express-session');  // express-session library
-var flash = require('flash');                     // flash library
-var portNumber = 5000;
 
-// Note that User Schema is already being exported
+var express = require('express');
+var morgan = require('morgan');
+var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
+var ejs = require('ejs');
+var engine = require('ejs-mate');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
+var flash = require('express-flash');
+var MongoStore = require('connect-mongo/es5')(session);
+var passport = require('passport');
+
+
+var secret = require('./config/secret');
 var User = require('./models/user');
+var Category = require('./models/category');
+
+var cartLength = require('./middlewares/middlewares');
+
 var app = express();
 
-// Connect to MongoDB, please insert your password and username here for your own use
-mongoose.connect('mongodb://pixelkris:213X143a@ds023452.mlab.com:23452/ecommmercewebapp', function(err) {
+mongoose.connect(secret.database, function(err) {
   if (err) {
-    console.log (err);
+    console.log(err);
   } else {
-    console.log("Connected to the database!");
+    console.log("Connected to the database");
   }
 });
 
@@ -27,18 +32,45 @@ mongoose.connect('mongodb://pixelkris:213X143a@ds023452.mlab.com:23452/ecommmerc
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-app.engine('ejs', ejsMate);
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(session({
+  resave: true,
+  saveUninitialized: true,
+  secret: secret.secretKey,
+  store: new MongoStore({ url: secret.database, autoReconnect: true})
+}));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(function(req, res, next) {
+  res.locals.user = req.user;
+  next();
+});
+
+app.use(cartLength);
+app.use(function(req, res, next) {
+  Category.find({}, function(err, categories) {
+    if (err) return next(err);
+    res.locals.categories = categories;
+    next();
+  });
+});
+
+app.engine('ejs', engine);
 app.set('view engine', 'ejs');
-app
 
 var mainRoutes = require('./routes/main');
 var userRoutes = require('./routes/user');
+var adminRoutes = require('./routes/admin');
+var apiRoutes = require('./api/api');
+
 app.use(mainRoutes);
 app.use(userRoutes);
+app.use(adminRoutes);
+app.use('/api', apiRoutes);
 
-// Server Validation Message
-app.listen(portNumber, function(err){
+app.listen(secret.port, function(err) {
   if (err) throw err;
-  console.log("Server is runnign at port: " + portNumber);
+  console.log("Server is Running on port " + secret.port);
 });

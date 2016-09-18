@@ -1,30 +1,30 @@
 {
-  "name": "doctR",
+  "name": "ecommerce",
   "version": "1.0.0",
-  "description": "An DoctR Web App",
+  "description": "This is an ecommerce website",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Xavier dela Cruz",
+  "author": "Arash",
   "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/pixelkris/lumohacks2016.git"
-  },
   "dependencies": {
+    "async": "^1.5.0",
     "bcrypt-nodejs": "0.0.3",
-    "body-parser": "^1.15.1",
-    "cookie-parser": "^1.4.3",
-    "ejs": "^2.4.1",
+    "body-parser": "^1.14.2",
+    "connect-mongo": "^1.1.0",
+    "cookie-parser": "^1.4.0",
+    "ejs": "^2.3.4",
     "ejs-mate": "^2.3.0",
-    "express": "^4.13.4",
-    "express-router": "0.0.1",
-    "express-session": "^1.14.1",
-    "flash": "^1.1.0",
-    "mongoose": "^4.4.17",
-    "morgan": "^1.7.0",
-    "router": "^1.1.4",
-    "session": "^0.1.0"
+    "express": "^4.13.3",
+    "express-flash": "0.0.2",
+    "express-session": "^1.12.1",
+    "faker": "^3.0.1",
+    "mongoosastic": "^3.6.0",
+    "mongoose": "^4.3.4",
+    "morgan": "^1.6.1",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "stripe": "^4.1.0"
   }
 }
