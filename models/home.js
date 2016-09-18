@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+
 var medDataSchema = new Schema({
 	name: {type: String, required: true},
 	description: String,

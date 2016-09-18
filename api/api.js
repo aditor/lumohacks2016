@@ -5,7 +5,6 @@ var Category = require('../models/category');
 var Product = require('../models/product');
 
 
-
 router.post('/search', function(req, res, next) {
   console.log(req.body.search_term);
   Product.search({
